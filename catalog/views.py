@@ -1,7 +1,12 @@
 from django.shortcuts import render
+from catalog.models import Product
 
 
 def home(request):
+    products = Product.objects.all()
+    for i in range(5):
+        print(products[i])
+
     return render(request, 'catalog/home.html')
 
 
