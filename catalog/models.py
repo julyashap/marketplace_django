@@ -34,3 +34,18 @@ class Product(models.Model):
     class Meta:
         verbose_name = 'продукт'
         verbose_name_plural = 'продукты'
+
+
+class Contact(models.Model):
+    """Модель для хранения контактных данных пользователя"""
+
+    name = models.CharField(max_length=100, verbose_name='имя')
+    number = models.CharField(max_length=11, verbose_name='телефон')
+    message = models.TextField(verbose_name='сообщение')
+
+    def __str__(self):
+        return f"{self.name} {self.number}"
+
+    class Meta:
+        verbose_name = 'контакт'
+        verbose_name_plural = 'контакты'
