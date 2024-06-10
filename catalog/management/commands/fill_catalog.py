@@ -12,7 +12,7 @@ class Command(BaseCommand):
     def json_read_categories():
         """Метод для получения данных о категориях с JSON-файла"""
 
-        with open('catalog.json') as jsonfile:
+        with open('catalog.json', encoding='utf-8') as jsonfile:
             content = json.load(jsonfile)
 
         categories = []
@@ -26,7 +26,7 @@ class Command(BaseCommand):
     def json_read_products():
         """Метод для получения данных о продуктах с JSON-файла"""
 
-        with open('catalog.json') as jsonfile:
+        with open('catalog.json', encoding='utf-8') as jsonfile:
             content = json.load(jsonfile)
 
         products = []
