@@ -26,7 +26,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='категория')
     created_at = models.DateField(verbose_name='дата создания')
     updated_at = models.DateField(verbose_name='дата последнего изменения')
-    manufactured_at = models.DateField(verbose_name='дата производства продукта')
+    manufactured_at = models.DateField(verbose_name='дата производства продукта', **NULLABLE)
 
     def __str__(self):
         return f"{self.pk}. {self.name}"
