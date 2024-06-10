@@ -37,14 +37,14 @@ class Product(models.Model):
 
 
 class Contact(models.Model):
-    """Модель для хранения контактных данных пользователя"""
+    """Модель для хранения контактных данных"""
 
-    name = models.CharField(max_length=100, verbose_name='имя')
-    number = models.CharField(max_length=11, verbose_name='телефон')
-    message = models.TextField(verbose_name='сообщение')
+    country = models.CharField(max_length=100, verbose_name='страна')
+    tin = models.CharField(max_length=10, verbose_name='ИНН')
+    address = models.CharField(max_length=100, verbose_name='адрес')
 
     def __str__(self):
-        return f"{self.name} {self.number}"
+        return f"{self.country} {self.tin}"
 
     class Meta:
         verbose_name = 'контакт'
