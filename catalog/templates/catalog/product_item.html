@@ -1,0 +1,11 @@
+{% extends 'catalog/base.html' %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-4">
+            <img src="{{ object.preview }}" class="rounded mx-auto d-block" alt="Картинка с продуктом">
+            <h2>{{ object.name }}</h2>
+            <p>{{ object.description }}</p>
+            <a class="p-2 btn btn-outline-primary" href="#">{{ object.price }} ₽</a>
+        </div>
+    </div>
+{% endblock %}
