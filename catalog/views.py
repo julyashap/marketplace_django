@@ -3,11 +3,13 @@ from catalog.models import Product, Contact
 
 
 def home(request):
-    products = Product.objects.all()
-    for i in range(5):
-        print(products[i])
+    products = Product.objects.all().order_by('-id')
 
-    return render(request, 'catalog/home.html')
+    context = {
+        'object_list': products
+    }
+
+    return render(request, 'catalog/home.html', context)
 
 
 def contacts(request):
@@ -19,4 +21,18 @@ def contacts(request):
         message = request.POST.get('message')
         print(f'{name} ({phone}): {message}')
 
-    return render(request, 'catalog/contacts.html', {'contact': contact})
+    context = {
+        'object': contact
+    }
+
+    return render(request, 'catalog/contacts.html', context)
+
+
+def product_item(request, pk):
+    product = Product.objects.get(pk=pk)
+
+    context = {
+        'object': product
+    }
+
+    return render(request, 'catalog/product_item.html', context)
