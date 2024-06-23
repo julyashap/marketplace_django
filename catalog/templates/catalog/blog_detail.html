@@ -2,8 +2,13 @@
 {% block content %}
     <div class="row d-flex justify-content-center align-items-center text-center">
         <div class="col-md-4">
+            {% if object.slug %}
+            <h2>{{ object.title }} ({{ object.slug }})</h2>
+            {% else %}
             <h2>{{ object.title }}</h2>
+            {% endif %}
             <p>{{ object.body }}</p>
+            <p style="padding-top: 20px">Просмотры записи: {{ object.count_views }}</p>
         </div>
     </div>
 {% endblock %}
