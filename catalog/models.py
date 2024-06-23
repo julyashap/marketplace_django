@@ -34,18 +34,3 @@ class Product(models.Model):
     class Meta:
         verbose_name = 'продукт'
         verbose_name_plural = 'продукты'
-
-
-class Contact(models.Model):
-    """Модель для хранения контактных данных"""
-
-    country = models.CharField(max_length=100, verbose_name='страна')
-    tin = models.CharField(max_length=10, verbose_name='ИНН')
-    address = models.CharField(max_length=100, verbose_name='адрес')
-
-    def __str__(self):
-        return f"{self.country} {self.tin}"
-
-    class Meta:
-        verbose_name = 'контакт'
-        verbose_name_plural = 'контакты'
