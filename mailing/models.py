@@ -51,7 +51,7 @@ class Newsletter(models.Model):
     periodicity = models.CharField(max_length=10, choices=PERIODICITY_CHOICES)
     status = models.CharField(max_length=9, choices=STATUS_CHOICES)
 
-    client = models.ForeignKey(Client, on_delete=models.CASCADE, verbose_name='клиент')
+    clients = models.ManyToManyField(Client, verbose_name='клиенты')
     message = models.ForeignKey(Message, on_delete=models.CASCADE, verbose_name='сообщение')
 
     class Meta:
