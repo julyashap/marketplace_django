@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView, TemplateView
 from mailing.models import Client, Message, Newsletter
 
@@ -18,7 +19,7 @@ class MailingView(TemplateView):
 class ClientCreateView(CreateView):
     model = Client
     fields = ('email', 'first_name', 'last_name', 'patronymic', 'comment',)
-    success_url = '...'
+    success_url = reverse_lazy('mailing:list_client')
 
 
 class ClientListView(ListView):
@@ -28,19 +29,19 @@ class ClientListView(ListView):
 class ClientUpdateView(UpdateView):
     model = Client
     fields = ('email', 'first_name', 'last_name', 'patronymic', 'comment',)
-    success_url = '...'
+    success_url = reverse_lazy('mailing:list_client')
 
 
 class ClientDeleteView(DeleteView):
     model = Client
     template_name = 'confirm_delete'
-    success_url = '...'
+    success_url = reverse_lazy('mailing:list_client')
 
 
 class MessageCreateView(CreateView):
     model = Message
     fields = ('title', 'body',)
-    success_url = '...'
+    success_url = reverse_lazy('mailing:list_message')
 
 
 class MessageListView(ListView):
@@ -50,19 +51,19 @@ class MessageListView(ListView):
 class MessageUpdateView(UpdateView):
     model = Message
     fields = ('title', 'body',)
-    success_url = '...'
+    success_url = reverse_lazy('mailing:list_message')
 
 
 class MessageDeleteView(DeleteView):
     model = Message
     template_name = 'confirm_delete'
-    success_url = '...'
+    success_url = reverse_lazy('mailing:list_message')
 
 
 class NewsletterCreateView(CreateView):
     model = Newsletter
     fields = ('first_sending', 'periodicity', 'client', 'message',)
-    success_url = '...'
+    success_url = reverse_lazy('mailing:list_newsletter')
 
 
 class NewsletterListView(ListView):
@@ -72,10 +73,10 @@ class NewsletterListView(ListView):
 class NewsletterUpdateView(UpdateView):
     model = Newsletter
     fields = ('first_sending', 'periodicity', 'client', 'message',)
-    success_url = '...'
+    success_url = reverse_lazy('mailing:list_newsletter')
 
 
 class NewsletterDeleteView(DeleteView):
     model = Newsletter
     template_name = 'confirm_delete'
-    success_url = '...'
+    success_url = reverse_lazy('mailing:list_newsletter')
