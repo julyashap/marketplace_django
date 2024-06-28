@@ -71,7 +71,7 @@ class MessageDeleteView(DeleteView):
 
 class NewsletterCreateView(CreateView):
     model = Newsletter
-    fields = ('first_sending', 'periodicity', 'client', 'message',)
+    fields = ('first_sending', 'periodicity', 'clients', 'message',)
     success_url = reverse_lazy('mailing:list_newsletter')
 
 
@@ -85,7 +85,7 @@ class NewsletterDetailView(DetailView):
 
 class NewsletterUpdateView(UpdateView):
     model = Newsletter
-    fields = ('first_sending', 'periodicity', 'client', 'message',)
+    fields = ('first_sending', 'periodicity', 'clients', 'message',)
     success_url = reverse_lazy('mailing:list_newsletter')
 
 
