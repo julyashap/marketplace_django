@@ -1,8 +1,8 @@
 from django.urls import path
-from apps import MailingConfig
+from mailing.apps import MailingConfig
 
 app_name = MailingConfig.name
 
 urlpatterns = [
-    path('', ..., name='...'),
+    # path('', ..., name='...'),
 ]
