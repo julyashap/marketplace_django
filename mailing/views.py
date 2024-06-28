@@ -2,16 +2,21 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView, TemplateView
 from mailing.models import Client, Message, Newsletter
+from django.core.exceptions import ObjectDoesNotExist
 
 
 class MailingView(TemplateView):
-    template_name = 'mailing_start.html'
+    template_name = 'mailing/mailing_start.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['client'] = get_object_or_404(Client, pk=1)
-        context['message'] = get_object_or_404(Message, pk=1)
+        if Client.objects.all() and Message.objects.all():
+            context['client'] = True
+            context['message'] = True
+        else:
+            context['client'] = False
+            context['message'] = False
 
         return context
 
@@ -34,7 +39,7 @@ class ClientUpdateView(UpdateView):
 
 class ClientDeleteView(DeleteView):
     model = Client
-    template_name = 'confirm_delete'
+    template_name = 'mailing/confirm_delete.html'
     success_url = reverse_lazy('mailing:list_client')
 
 
@@ -56,7 +61,7 @@ class MessageUpdateView(UpdateView):
 
 class MessageDeleteView(DeleteView):
     model = Message
-    template_name = 'confirm_delete'
+    template_name = 'mailing/confirm_delete.html'
     success_url = reverse_lazy('mailing:list_message')
 
 
@@ -78,5 +83,5 @@ class NewsletterUpdateView(UpdateView):
 
 class NewsletterDeleteView(DeleteView):
     model = Newsletter
-    template_name = 'confirm_delete'
+    template_name = 'mailing/confirm_delete.html'
     success_url = reverse_lazy('mailing:list_newsletter')
