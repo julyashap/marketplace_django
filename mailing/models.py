@@ -24,7 +24,7 @@ class Client(models.Model):
 
 class Message(models.Model):
     title = models.CharField(max_length=150, verbose_name='тема')
-    body = models.CharField(max_length=150, verbose_name='тело')
+    body = models.TextField(verbose_name='тело сообщения')
 
     class Meta:
         verbose_name = 'сообщение'
