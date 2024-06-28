@@ -5,7 +5,7 @@
 </div>
 <div class="row text-center">
     {% for object in object_list %}
-    <div class="col-3">
+    <div class="col-4">
         <div class="card mb-4 box-shadow">
             <div class="card-header">
                 <h4 class="my-0 font-weight-normal">{{ object.last_name }} {{ object.first_name.0 }}.
@@ -13,10 +13,8 @@
             </div>
             <div class="card-body">
                 <h5>{{ object.email }}</h5>
-                {% if object.comment %}
-                <p>{{ object.comment|slice:100 }}</p>
-                {% endif %}
                 <div class="btn-group" role="group">
+                    <a class="btn btn-outline-primary" href="{% url 'mailing:detail_client' object.pk %}">Посмотреть</a>
                     <a class="btn btn-outline-primary"
                        href="{% url 'mailing:update_client' object.pk %}">Редактировать</a>
                     <a class="btn btn-outline-primary" href="{% url 'mailing:delete_client' object.pk %}">Удалить</a>
