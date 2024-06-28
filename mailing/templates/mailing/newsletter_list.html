@@ -5,10 +5,10 @@
 </div>
 <div class="row text-center">
     {% for object in object_list %}
-    <div class="col-6">
+    <div class="col-4">
         <div class="card mb-4 box-shadow">
             <div class="card-header">
-                <h4 class="my-0 font-weight-normal">{{ object.title }}</h4>
+                <h4 class="my-0 font-weight-normal">{{ object.pk }}</h4>
             </div>
             <div class="card-body">
                 <table class="table">
@@ -22,13 +22,14 @@
                     <tbody>
                     <tr>
                         <td>{{ object.first_sending }}</td>
-                        <td>{{ object.periodicity }}</td>
-                        <td>{{ object.status }}</td>
+                        <td>{{ object.get_periodicity_display }}</td>
+                        <td>{{ object.get_status_display }}</td>
                     </tr>
                     </tbody>
                 </table>
-                <p style="font-weight: 700">Сообщение: {{ object.message|slice:100 }}...</p>
                 <div class="btn-group" role="group">
+                    <a class="btn btn-outline-primary"
+                       href="{% url 'mailing:detail_newsletter' object.pk %}">Посмотреть</a>
                     <a class="btn btn-outline-primary"
                        href="{% url 'mailing:update_newsletter' object.pk %}">Редактировать</a>
                     <a class="btn btn-outline-primary" href="{% url 'mailing:delete_newsletter' object.pk %}">Удалить</a>
