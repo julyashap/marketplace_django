@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView, UpdateView, DeleteView, TemplateView
+from django.views.generic import CreateView, ListView, UpdateView, DeleteView, TemplateView, DetailView
 from mailing.models import Client, Message, Newsletter
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -28,6 +28,10 @@ class ClientCreateView(CreateView):
 
 
 class ClientListView(ListView):
+    model = Client
+
+
+class ClientDetailView(DetailView):
     model = Client
 
 
@@ -72,6 +76,10 @@ class NewsletterCreateView(CreateView):
 
 
 class NewsletterListView(ListView):
+    model = Newsletter
+
+
+class NewsletterDetailView(DetailView):
     model = Newsletter
 
 
