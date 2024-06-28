@@ -1,10 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "catalog/base.html" %}
 
-</body>
-</html>
+{% block content %}
+<div class="col-12">
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <p>Хотите удалить "{{ object }}"?</p>
+                        <button type="submit" class="btn btn-success">
+                            Подтвердить
+                        </button>
+                        <a href="{% url 'mailing:mailing_start' %}" class="btn btn-danger">
+                            Отмена
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
