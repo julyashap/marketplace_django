@@ -15,7 +15,7 @@ class MessageAdmin(admin.ModelAdmin):
 
 @admin.register(Newsletter)
 class NewsletterAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'first_sending', 'periodicity', 'status', 'client', 'message',)
+    list_display = ('pk', 'first_sending', 'periodicity', 'status', 'message',)
 
 
 @admin.register(NewsletterLog)
