@@ -48,8 +48,8 @@ class Newsletter(models.Model):
     )
 
     first_sending = models.DateTimeField(verbose_name='первая отправка')
-    periodicity = models.CharField(max_length=10, choices=PERIODICITY_CHOICES)
-    status = models.CharField(max_length=9, choices=STATUS_CHOICES)
+    periodicity = models.CharField(max_length=10, choices=PERIODICITY_CHOICES, verbose_name='периодичность')
+    status = models.CharField(max_length=9, choices=STATUS_CHOICES, verbose_name='статус')
 
     clients = models.ManyToManyField(Client, verbose_name='клиенты')
     message = models.ForeignKey(Message, on_delete=models.CASCADE, verbose_name='сообщение')
