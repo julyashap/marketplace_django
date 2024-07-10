@@ -48,6 +48,7 @@ class Newsletter(models.Model):
     )
 
     first_sending = models.DateTimeField(verbose_name='первая отправка')
+    last_sending = models.DateTimeField(**NULLABLE, verbose_name='последняя отправка')
     periodicity = models.CharField(max_length=10, choices=PERIODICITY_CHOICES, verbose_name='периодичность')
     status = models.CharField(max_length=9, choices=STATUS_CHOICES, verbose_name='статус')
 
@@ -66,6 +67,8 @@ class NewsletterLog(models.Model):
     last_attempt = models.DateTimeField(verbose_name='последняя попытка')
     status = models.BooleanField(verbose_name='статус')
     server_answer = models.TextField(**NULLABLE, verbose_name='ответ почтового сервера')
+
+    newsletter = models.ForeignKey(Newsletter, **NULLABLE, on_delete=models.CASCADE, verbose_name='рассылка')
 
     class Meta:
         verbose_name = 'попытки рассылки'
