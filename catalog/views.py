@@ -1,13 +1,9 @@
 from django.shortcuts import render
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
-from pytils.translit import slugify
 
-from catalog.models import Product, Blog
-
-
-class ProductListView(ListView):
-    model = Product
+from catalog.forms import ProductForm
+from catalog.models import Product
 
 
 class ContactTemplateView(TemplateView):
@@ -22,52 +18,26 @@ class ContactTemplateView(TemplateView):
         return render(request, 'catalog/contacts.html')
 
 
+class ProductListView(ListView):
+    model = Product
+
+
 class ProductDetailView(DetailView):
     model = Product
 
 
-class BlogListView(ListView):
-    model = Blog
-
-    def get_queryset(self, *args, **kwargs):
-        queryset = super().get_queryset(*args, **kwargs)
-        queryset = queryset.filter(is_published=True)
-
-        return queryset
+class ProductCreateView(CreateView):
+    model = Product
+    form_class = ProductForm
+    success_url = reverse_lazy('catalog:home')
 
 
-class BlogDetailView(DetailView):
-    model = Blog
-
-    def get_object(self, queryset=None):
-        self.object = super().get_object(queryset)
-        self.object.count_views += 1
-        self.object.save()
-
-        return self.object
+class ProductUpdateView(UpdateView):
+    model = Product
+    form_class = ProductForm
+    success_url = reverse_lazy('catalog:home')
 
 
-class BlogCreateView(CreateView):
-    model = Blog
-    fields = ('title', 'body', 'preview', 'created_at', 'is_published',)
-    success_url = reverse_lazy('catalog:blog_list')
-
-    def form_valid(self, form):
-        if form.is_valid():
-            blog = form.save()
-            blog.slug = slugify(blog.title)
-            blog.save()
-        return super().form_valid(form)
-
-
-class BlogUpdateView(UpdateView):
-    model = Blog
-    fields = ('title', 'body', 'preview', 'created_at', 'is_published',)
-
-    def get_success_url(self):
-        return reverse('catalog:blog_detail', args=[self.kwargs.get('pk')])
-
-
-class BlogDeleteView(DeleteView):
-    model = Blog
-    success_url = reverse_lazy('catalog:blog_list')
+class ProductDeleteView(DeleteView):
+    model = Product
+    success_url = reverse_lazy('catalog:home')
