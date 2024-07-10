@@ -13,7 +13,7 @@ class ProductForm(forms.ModelForm):
     def clean_name(self):
         cleaned_data = self.cleaned_data.get('name')
 
-        if cleaned_data in self.stop_words:
+        if cleaned_data.lower() in self.stop_words:
             raise forms.ValidationError('Такое имя недопустимо!')
 
         return cleaned_data
@@ -22,7 +22,7 @@ class ProductForm(forms.ModelForm):
         cleaned_data = self.cleaned_data.get('description')
 
         for stop_word in self.stop_words:
-            if stop_word in cleaned_data:
+            if stop_word in cleaned_data.lower():
                 raise forms.ValidationError('Такое описание недопустимо!')
 
         return cleaned_data
