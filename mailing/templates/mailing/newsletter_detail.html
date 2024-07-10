@@ -6,6 +6,7 @@
 
         <h5 style="padding-top: 35px">Первая отправка:
             <span class="text-primary">{{ object.first_sending }}</span></h5>
+        <h5>Последняя отправка: <span class="text-primary">{{ object.last_sending }}</span></h5>
         <h5>Периодичность отправки:
             <span class="text-primary">{{ object.get_periodicity_display }}</span></h5>
         <h5>Статус рассылки: <span class="text-primary">{{ object.get_status_display }}</span></h5>
