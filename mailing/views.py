@@ -1,8 +1,6 @@
-from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView, TemplateView, DetailView
 from mailing.models import Client, Message, Newsletter
-from django.core.exceptions import ObjectDoesNotExist
 
 
 class MailingView(TemplateView):
@@ -12,11 +10,9 @@ class MailingView(TemplateView):
         context = super().get_context_data(**kwargs)
 
         if Client.objects.all() and Message.objects.all():
-            context['client'] = True
-            context['message'] = True
+            context['client_message'] = True
         else:
-            context['client'] = False
-            context['message'] = False
+            context['client_message'] = False
 
         return context
 
@@ -71,8 +67,13 @@ class MessageDeleteView(DeleteView):
 
 class NewsletterCreateView(CreateView):
     model = Newsletter
-    fields = ('first_sending', 'periodicity', 'clients', 'message',)
+    fields = ('first_sending', 'last_sending', 'periodicity', 'clients', 'message',)
     success_url = reverse_lazy('mailing:list_newsletter')
+
+    def form_valid(self, form):
+        form.instance.status = 'created'
+
+        return super().form_valid(form)
 
 
 class NewsletterListView(ListView):
@@ -85,7 +86,7 @@ class NewsletterDetailView(DetailView):
 
 class NewsletterUpdateView(UpdateView):
     model = Newsletter
-    fields = ('first_sending', 'periodicity', 'clients', 'message',)
+    fields = ('first_sending', 'last_sending', 'periodicity', 'clients', 'message',)
     success_url = reverse_lazy('mailing:list_newsletter')
 
 
