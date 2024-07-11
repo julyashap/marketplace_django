@@ -22,6 +22,11 @@
                        href="{% url 'catalog:product_delete' object.pk %}">Удалить</a>
                 </div>
             </div>
+            {% for version in versions %}
+            {% if version.product == object and version.is_current %}
+            <p style="color: #198754">Активна версия {{ version.name }}!</p>
+            {% endif %}
+            {% endfor %}
         </div>
     </div>
     {% endfor %}
