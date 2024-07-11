@@ -1,3 +1,4 @@
+{% load crispy_forms_tags %}
 <div class="col-12">
     <div class="row">
         <div class="col-6">
@@ -6,7 +7,7 @@
                     <form method="post" enctype="multipart/form-data">
                         {% csrf_token %}
 
-                        {{ form.as_p }}
+                        {{ form|crispy }}
 
                         {% if object.pk %}
                         <button type="submit" class="btn btn-primary">
