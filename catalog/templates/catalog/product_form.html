@@ -1,0 +1,48 @@
+{% extends 'catalog/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="col-12">
+        <div class="row">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            Продукт
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        {{ form|crispy }}
+
+                        {% if object.pk %}
+                        <button type="submit" class="btn btn-primary">
+                            Сохранить
+                        </button>
+                        {% else %}
+                        <button type="submit" class="btn btn-primary">
+                            Создать
+                        </button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            Версии
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        {{ formset.management_form }}
+                        {% for form in formset.forms %}
+                        {{ form|crispy }}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}
