@@ -53,3 +53,20 @@ class Blog(models.Model):
     class Meta:
         verbose_name = 'запись блога'
         verbose_name_plural = 'записи блога'
+
+
+class Version(models.Model):
+    """Модель для данных о версиях продукта"""
+
+    number = models.IntegerField(verbose_name='номер')
+    name = models.CharField(max_length=150, verbose_name='название')
+    is_current = models.BooleanField(verbose_name='признак актуальности')
+
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='продукт')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'версия'
+        verbose_name_plural = 'версии'
