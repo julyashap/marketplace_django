@@ -11,16 +11,15 @@
 
                         {{ form|crispy }}
 
-                        {% if user.is_authenticated %}
-                        <button type="submit" class="btn btn-primary">
-                            Сохранить
-                        </button>
-                        {% else %}
                         <button type="submit" class="btn btn-primary">
                             Войти
                         </button>
-                        {% endif %}
                     </form>
+                    <p style="margin-top: 15px">Еще не зарегистрированы?
+                        <a href="{% url 'users:registration' %}"
+                           class="link-success link-offset-2 link-underline-opacity-25
+                           link-underline-opacity-100-hover">Зарегистрироваться!</a>
+                    </p>
                 </div>
             </div>
         </div>

@@ -2,8 +2,8 @@ from django.contrib.auth.forms import PasswordResetForm
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.utils.crypto import get_random_string
-from django.views.generic import CreateView
-from users.forms import RegistrationForm
+from django.views.generic import CreateView, DetailView, UpdateView
+from users.forms import RegistrationForm, ProfileUpdateForm
 from users.models import User
 from django.conf import settings
 from django.core.mail import send_mail
@@ -57,3 +57,20 @@ def reset_password(request):
         form = PasswordResetForm()
 
     return render(request, 'users/password_reset.html', {'form': form})
+
+
+class ProfileView(DetailView):
+    model = User
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+
+class ProfileUpdateView(UpdateView):
+    model = User
+    form_class = ProfileUpdateForm
+    success_url = reverse_lazy('users:profile')
+    template_name = 'users/update_profile.html'
+
+    def get_object(self, queryset=None):
+        return self.request.user
