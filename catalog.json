@@ -79,5 +79,100 @@
       "created_at": "2024-06-10",
       "updated_at": "2024-06-10"
     }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 11,
+    "fields": {
+      "name": "Груша",
+      "description": "Для того, чтобы есть :)",
+      "preview": "products/груша.jpg",
+      "category": 7,
+      "price": 150,
+      "created_at": "2024-06-14",
+      "updated_at": "2024-06-14"
+    }
+  },
+  {
+    "model": "catalog.blog",
+    "pk": 1,
+    "fields": {
+      "title": "Зачем нужно есть еду?",
+      "slug": null,
+      "body": "Затем.",
+      "preview": "",
+      "created_at": "2024-06-23",
+      "is_published": true,
+      "count_views": 9
+    }
+  },
+  {
+    "model": "catalog.blog",
+    "pk": 3,
+    "fields": {
+      "title": "IPhone 15 PRO - стоит ли покупать?",
+      "slug": null,
+      "body": "Ну если честно наверное всё таки стоит купить IPhone 15 PRO MAX, так как в нем нет известных проблем автокоррекции фотографий, которая всем не понравилась. Однако 15 PRO тоже неплох, хотя и стоит достаточно дорого. В общем, решать вам...",
+      "preview": "",
+      "created_at": "2024-06-23",
+      "is_published": false,
+      "count_views": 19
+    }
+  },
+  {
+    "model": "catalog.blog",
+    "pk": 4,
+    "fields": {
+      "title": "Бананы - полезно или не очень?",
+      "slug": null,
+      "body": "Однозначно полезно, хотя может и не очень...",
+      "preview": "",
+      "created_at": "2024-06-23",
+      "is_published": true,
+      "count_views": 10
+    }
+  },
+  {
+    "model": "catalog.blog",
+    "pk": 6,
+    "fields": {
+      "title": "Новый пост!",
+      "slug": "novyij-post",
+      "body": "Новый пост!",
+      "preview": "",
+      "created_at": "2024-06-23",
+      "is_published": true,
+      "count_views": 11
+    }
+  },
+  {
+    "model": "catalog.version",
+    "pk": 2,
+    "fields": {
+      "number": 1,
+      "name": "New",
+      "is_current": true,
+      "product": 9
+    }
+  },
+  {
+    "model": "catalog.version",
+    "pk": 3,
+    "fields": {
+      "number": 2,
+      "name": "NewNew",
+      "is_current": true,
+      "product": 8
+    }
+  },
+  {
+    "model": "catalog.version",
+    "pk": 4,
+    "fields": {
+      "number": 3,
+      "name": "NotNew",
+      "is_current": false,
+      "product": 11
+    }
   }
 ]
