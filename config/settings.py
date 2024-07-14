@@ -18,6 +18,7 @@ INSTALLED_APPS = [
 
     'catalog',
     'mailing',
+    'users',
 
     'django_apscheduler',
     'crispy_forms',
