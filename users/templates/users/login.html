@@ -1,3 +1,5 @@
+{% extends 'catalog/base.html' %}
+{% block content %}
 {% load crispy_forms_tags %}
 <div class="col-12">
     <div class="row d-flex justify-content-center align-items-center text-center">
@@ -9,18 +11,18 @@
 
                         {{ form|crispy }}
 
-                        {% if object.pk %}
                         <button type="submit" class="btn btn-primary">
-                            Сохранить
+                            Войти
                         </button>
-                        {% else %}
-                        <button type="submit" class="btn btn-primary">
-                            Создать
-                        </button>
-                        {% endif %}
                     </form>
+                    <p style="margin-top: 15px">Еще не зарегистрированы?
+                        <a href="{% url 'users:registration' %}"
+                           class="link-success link-offset-2 link-underline-opacity-25
+                           link-underline-opacity-100-hover">Зарегистрироваться!</a>
+                    </p>
                 </div>
             </div>
         </div>
     </div>
 </div>
+{% endblock %}

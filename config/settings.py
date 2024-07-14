@@ -18,6 +18,7 @@ INSTALLED_APPS = [
 
     'catalog',
     'mailing',
+    'users',
 
     'django_apscheduler',
     'crispy_forms',
@@ -103,3 +104,14 @@ APSCHEDULER_RUN_NOW_TIMEOUT = 25  # Seconds
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+AUTH_USER_MODEL = 'users.User'
+LOGIN_REDIRECT_URL = 'catalog:product_list'
+LOGOUT_REDIRECT_URL = 'catalog:product_list'
+
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 2525
+EMAIL_HOST_USER = "shapaeva03@mail.ru"
+EMAIL_HOST_PASSWORD = "0Yk3hJdxbP25DqytSw8P"
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
