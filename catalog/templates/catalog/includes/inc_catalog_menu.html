@@ -5,6 +5,7 @@
         <a class="p-2 btn btn-primary" href="{% url 'users:registration' %}">Регистрация</a>
         <a class="p-2 btn btn-primary" href="{% url 'users:login' %}">Вход</a>
         {% else %}
+        <a class="p-2 btn btn-primary" href="{% url 'users:profile' %}">Профиль</a>
         <a class="p-2 btn btn-danger" href="{% url 'users:logout' %}">Выход</a>
         {% endif %}
         <a class="p-2 btn btn-outline-primary" href="{% url 'catalog:product_list' %}">Каталог</a>
