@@ -1,3 +1,6 @@
+import datetime
+
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import inlineformset_factory
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
@@ -82,7 +85,10 @@ class ProductListView(ListView):
         return context_data
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
+    login_url = reverse_lazy('users:login')
+    redirect_field_name = 'next'
+
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:product_list')
@@ -97,6 +103,11 @@ class ProductCreateView(CreateView):
         return context_data
 
     def form_valid(self, form):
+        form.instance.created_at = datetime.datetime.now()
+        form.instance.updated_at = datetime.datetime.now()
+
+        form.instance.user = self.request.user
+
         formset = self.get_context_data()['formset']
 
         self.object = form.save()
@@ -108,7 +119,10 @@ class ProductCreateView(CreateView):
         return super().form_valid(form)
 
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
+    login_url = reverse_lazy('users:login')
+    redirect_field_name = 'next'
+
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:product_list')
@@ -123,6 +137,8 @@ class ProductUpdateView(UpdateView):
         return context_data
 
     def form_valid(self, form):
+        form.instance.updated_at = datetime.datetime.now()
+
         formset = self.get_context_data()['formset']
 
         self.object = form.save()
@@ -134,6 +150,9 @@ class ProductUpdateView(UpdateView):
         return super().form_valid(form)
 
 
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(LoginRequiredMixin, DeleteView):
+    login_url = reverse_lazy('users:login')
+    redirect_field_name = 'next'
+
     model = Product
     success_url = reverse_lazy('catalog:product_list')
