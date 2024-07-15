@@ -1,9 +1,9 @@
 from django.contrib.auth.forms import PasswordResetForm
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.crypto import get_random_string
 from django.views.generic import CreateView, DetailView, UpdateView
-from users.forms import RegistrationForm, ProfileUpdateForm
+from users.forms import RegistrationForm, ProfileUpdateForm, EmailConfirmForm
 from users.models import User
 from django.conf import settings
 from django.core.mail import send_mail
@@ -13,17 +13,37 @@ from django.contrib.auth.views import LoginView as BaseLoginView, LogoutView as 
 class RegistrationView(CreateView):
     model = User
     form_class = RegistrationForm
-    success_url = reverse_lazy('catalog:product_list')
+    success_url = reverse_lazy('users:email_confirm')
 
     def form_valid(self, form):
+        code = get_random_string(length=4)
+        user = form.save()
+        user.is_active = False
+        user.code = code
+        user.save()
+
         send_mail('Подтверждение регистрации Skystore',
-                  'Здравствуйте! Это письмо - проверка на подлинность '
-                  'Вашей электронной почты. Можете на него не отвечать :)',
+                  f'Здравствуйте! Это письмо - проверка на подлинность '
+                  f'Вашей электронной почты.\n\nКод для подтверждения: {code}',
                   settings.EMAIL_HOST_USER,
                   [self.request.POST.get('email')],
                   fail_silently=True)
 
         return super().form_valid(form)
+
+
+def email_confirm(request):
+    if request.method == 'POST':
+        form = EmailConfirmForm(request.POST)
+        if form.is_valid():
+            user = get_object_or_404(User, code=form.cleaned_data['code'])
+            user.is_active = True
+            user.save()
+            return redirect('users:login')
+    else:
+        form = EmailConfirmForm()
+
+    return render(request, 'users/email_confirm.html', {'form': form})
 
 
 class LoginView(BaseLoginView):
@@ -41,13 +61,14 @@ def reset_password(request):
             email = form.cleaned_data['email']
             user = User.objects.get(email=email)
 
+            new_password = get_random_string(length=8)
             user.set_password(
-                get_random_string(length=8)
+                new_password
             )
             user.save()
 
             send_mail('Новый пароль Skystore',
-                      f'Ваш новый пароль: {user.password}',
+                      f'Ваш новый пароль: {new_password}',
                       settings.EMAIL_HOST_USER,
                       [email],
                       fail_silently=True)
