@@ -18,3 +18,7 @@ class ProfileUpdateForm(UserChangeForm):
         super().__init__(*args, **kwargs)
 
         self.fields['password'].widget = forms.HiddenInput()
+
+
+class EmailConfirmForm(forms.Form):
+    code = forms.CharField(max_length=4, label='Email-код')
