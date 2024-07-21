@@ -29,6 +29,7 @@ class Product(models.Model):
     price = models.IntegerField(verbose_name='цена', **NULLABLE)
     created_at = models.DateField(verbose_name='дата создания')
     updated_at = models.DateField(verbose_name='дата последнего изменения')
+    is_published = models.BooleanField(default=False, verbose_name='признак публикации')
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='пользователь', **NULLABLE)
 
@@ -38,6 +39,12 @@ class Product(models.Model):
     class Meta:
         verbose_name = 'продукт'
         verbose_name_plural = 'продукты'
+
+        permissions = [
+            ('can_unpublish', 'Может отменять публикацию'),
+            ('can_change_description', 'Может менять описание'),
+            ('can_change_category', 'Может менять категорию')
+        ]
 
 
 class Blog(models.Model):
