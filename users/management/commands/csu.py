@@ -5,7 +5,7 @@ from users.models import User
 class Command(BaseCommand):
     def handle(self, *args, **options):
         superuser = User.objects.create(
-            email='shapaeva03@mail.ru',
+            email='admin@admin.ru',
             first_name='Julya',
             last_name='Shapaeva',
             is_staff=True,

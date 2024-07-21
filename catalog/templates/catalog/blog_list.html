@@ -1,8 +1,10 @@
 {% extends "catalog/base.html" %}
 {% block content %}
+{% if perms.catalog.add_blog %}
 <div class="mb-5 d-flex justify-content-center align-items-center">
     <a class="btn btn-primary" href="{% url 'catalog:create_blog' %}">Добавить запись</a>
 </div>
+{% endif %}
 <div class="row text-center">
     {% for object in object_list %}
     <div class="col-4">
@@ -15,10 +17,14 @@
                     <div class="btn-group" role="group">
                         <a class="btn btn-outline-primary"
                             href="{% url 'catalog:blog_detail' object.pk %}">Посмотреть</a>
+                        {% if perms.catalog.change_blog %}
                         <a class="btn btn-outline-primary"
                             href="{% url 'catalog:update_blog' object.pk %}">Редактировать</a>
+                        {% endif %}
+                        {% if perms.catalog.delete_blog %}
                         <a class="btn btn-outline-primary"
                            href="{% url 'catalog:delete_blog' object.pk %}">Удалить</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
