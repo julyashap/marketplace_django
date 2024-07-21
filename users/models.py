@@ -9,9 +9,9 @@ class User(AbstractUser):
     username = None
     email = models.EmailField(unique=True, verbose_name='email')
 
-    avatar = models.ImageField(verbose_name='аватар')
-    phone = models.CharField(max_length=50, verbose_name='номер')
-    country = models.CharField(max_length=100, verbose_name='страна')
+    avatar = models.ImageField(upload_to='users/avatars/', verbose_name='аватар', **NULLABLE)
+    phone = models.CharField(max_length=50, verbose_name='номер', **NULLABLE)
+    country = models.CharField(max_length=100, verbose_name='страна', **NULLABLE)
 
     code = models.CharField(max_length=4, verbose_name='email-код', **NULLABLE)
 
