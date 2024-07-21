@@ -16,10 +16,12 @@
                 <div class="btn-group" role="group">
                     <a class="btn btn-outline-primary"
                        href="{% url 'catalog:product_detail' object.pk %}">Посмотреть</a>
+                    {% if user == object.user or perms.catalog.can_unpublish and perms.catalog.can_change_description and perms.catalog.can_change_category %}
                     <a class="btn btn-outline-primary"
                        href="{% url 'catalog:product_update' object.pk %}">Редактировать</a>
                     <a class="btn btn-outline-primary"
                        href="{% url 'catalog:product_delete' object.pk %}">Удалить</a>
+                    {% endif %}
                 </div>
             </div>
             {% for version in versions %}
