@@ -108,6 +108,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 AUTH_USER_MODEL = 'users.User'
 LOGIN_REDIRECT_URL = 'catalog:product_list'
 LOGOUT_REDIRECT_URL = 'catalog:product_list'
+LOGIN_URL = 'users:login'
 
 EMAIL_HOST = 'smtp.mail.ru'
 EMAIL_PORT = 2525
