@@ -8,7 +8,8 @@ from django.views.generic import ListView, DetailView, TemplateView, CreateView,
 from pytils.translit import slugify
 
 from catalog.forms import ProductForm, VersionForm, ProductModeratorForm
-from catalog.models import Product, Blog, Version
+from catalog.models import Product, Blog, Version, Category
+from catalog.services import cache_category_list, cache_product_list
 
 
 class ContactTemplateView(TemplateView):
@@ -76,12 +77,17 @@ class BlogDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     permission_required = 'catalog.delete_blog'
 
 
-class ProductDetailView(DetailView):
+class ProductDetailView(LoginRequiredMixin, DetailView):
     model = Product
 
 
-class ProductListView(ListView):
+class ProductListView(LoginRequiredMixin, ListView):
     model = Product
+
+    def get_queryset(self, *args, **kwargs):
+        self.queryset = cache_product_list(self.kwargs.get('pk'))
+
+        return super().get_queryset(*args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
@@ -94,7 +100,6 @@ class ProductListView(ListView):
 class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
-    success_url = reverse_lazy('catalog:product_list')
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
@@ -121,10 +126,12 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
 
         return super().form_valid(form)
 
+    def get_success_url(self):
+        return reverse('catalog:product_list', args=[self.object.category.pk])
+
 
 class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Product
-    success_url = reverse_lazy('catalog:product_list')
 
     def test_func(self):
         user = self.request.user
@@ -161,12 +168,22 @@ class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
             return ProductModeratorForm
         return ProductForm
 
+    def get_success_url(self):
+        return reverse('catalog:product_list', args=[self.object.category.pk])
+
 
 class ProductDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Product
-    success_url = reverse_lazy('catalog:product_list')
 
     def test_func(self):
         user = self.request.user
 
         return user == self.get_object().user or user.has_perm('catalog.delete_product')
+
+    def get_success_url(self):
+        return reverse('catalog:product_list', args=[self.object.category.pk])
+
+
+class CategoryListView(ListView):
+    model = Category
+    queryset = cache_category_list()
