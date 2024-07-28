@@ -116,3 +116,13 @@ EMAIL_HOST_USER = "shapaeva03@mail.ru"
 EMAIL_HOST_PASSWORD = "0Yk3hJdxbP25DqytSw8P"
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+
+ENABLE_CACHE = True
+
+if ENABLE_CACHE:
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.redis.RedisCache",
+            "LOCATION": "redis://127.0.0.1:6379",
+        }
+    }
