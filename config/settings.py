@@ -22,7 +22,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'catalog',
-    'mailing',
+    'blog',
     'users',
 
     'django_apscheduler',
@@ -116,13 +116,6 @@ AUTH_USER_MODEL = 'users.User'
 LOGIN_REDIRECT_URL = 'catalog:category_list'
 LOGOUT_REDIRECT_URL = 'catalog:category_list'
 LOGIN_URL = 'users:login'
-
-EMAIL_HOST = os.getenv('EMAIL_HOST')
-EMAIL_PORT = int(os.getenv('EMAIL_PORT'))
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
-EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
 
 ENABLE_CACHE = bool(os.getenv('ENABLE_CACHE'))
 

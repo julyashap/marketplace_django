@@ -1,14 +1,11 @@
 import datetime
-
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.forms import inlineformset_factory
 from django.shortcuts import render
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
-from pytils.translit import slugify
-
 from catalog.forms import ProductForm, VersionForm, ProductModeratorForm
-from catalog.models import Product, Blog, Version, Category
+from catalog.models import Product, Version, Category
 from catalog.services import cache_category_list, cache_product_list
 
 
@@ -22,59 +19,6 @@ class ContactTemplateView(TemplateView):
         print(f'{name} ({phone}): {message}')
 
         return render(request, 'catalog/contacts.html')
-
-
-class BlogListView(ListView):
-    model = Blog
-
-    def get_queryset(self, *args, **kwargs):
-        queryset = super().get_queryset(*args, **kwargs)
-        queryset = queryset.filter(is_published=True)
-
-        return queryset
-
-
-class BlogDetailView(DetailView):
-    model = Blog
-
-    def get_object(self, queryset=None):
-        self.object = super().get_object(queryset)
-        self.object.count_views += 1
-        self.object.save()
-
-        return self.object
-
-
-class BlogCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
-    model = Blog
-    fields = ('title', 'body', 'preview', 'created_at', 'is_published',)
-    success_url = reverse_lazy('catalog:blog_list')
-
-    permission_required = 'catalog.add_blog'
-
-    def form_valid(self, form):
-        if form.is_valid():
-            blog = form.save()
-            blog.slug = slugify(blog.title)
-            blog.save()
-        return super().form_valid(form)
-
-
-class BlogUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
-    model = Blog
-    fields = ('title', 'body', 'preview', 'created_at', 'is_published',)
-
-    permission_required = 'catalog.change_blog'
-
-    def get_success_url(self):
-        return reverse('catalog:blog_detail', args=[self.kwargs.get('pk')])
-
-
-class BlogDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
-    model = Blog
-    success_url = reverse_lazy('catalog:blog_list')
-
-    permission_required = 'catalog.delete_blog'
 
 
 class ProductDetailView(LoginRequiredMixin, DetailView):
