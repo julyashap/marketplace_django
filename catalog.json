@@ -94,7 +94,7 @@
     }
   },
   {
-    "model": "catalog.blog",
+    "model": "blog.blog",
     "pk": 1,
     "fields": {
       "title": "Зачем нужно есть еду?",
@@ -107,7 +107,7 @@
     }
   },
   {
-    "model": "catalog.blog",
+    "model": "blog.blog",
     "pk": 3,
     "fields": {
       "title": "IPhone 15 PRO - стоит ли покупать?",
@@ -120,7 +120,7 @@
     }
   },
   {
-    "model": "catalog.blog",
+    "model": "blog.blog",
     "pk": 4,
     "fields": {
       "title": "Бананы - полезно или не очень?",
@@ -133,7 +133,7 @@
     }
   },
   {
-    "model": "catalog.blog",
+    "model": "blog.blog",
     "pk": 6,
     "fields": {
       "title": "Новый пост!",
