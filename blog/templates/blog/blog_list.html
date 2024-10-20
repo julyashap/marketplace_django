@@ -2,7 +2,7 @@
 {% block content %}
 {% if perms.catalog.add_blog %}
 <div class="mb-5 d-flex justify-content-center align-items-center">
-    <a class="btn btn-primary" href="{% url 'catalog:create_blog' %}">Добавить запись</a>
+    <a class="btn btn-primary" href="{% url 'blog:create_blog' %}">Добавить запись</a>
 </div>
 {% endif %}
 <div class="row text-center">
@@ -16,14 +16,14 @@
                     <p>{{ object.body|slice:100 }}</p>
                     <div class="btn-group" role="group">
                         <a class="btn btn-outline-primary"
-                            href="{% url 'catalog:blog_detail' object.pk %}">Посмотреть</a>
-                        {% if perms.catalog.change_blog %}
+                            href="{% url 'blog:blog_detail' object.pk %}">Посмотреть</a>
+                        {% if perms.blog.change_blog %}
                         <a class="btn btn-outline-primary"
-                            href="{% url 'catalog:update_blog' object.pk %}">Редактировать</a>
+                            href="{% url 'blog:update_blog' object.pk %}">Редактировать</a>
                         {% endif %}
-                        {% if perms.catalog.delete_blog %}
+                        {% if perms.blog.delete_blog %}
                         <a class="btn btn-outline-primary"
-                           href="{% url 'catalog:delete_blog' object.pk %}">Удалить</a>
+                           href="{% url 'blog:delete_blog' object.pk %}">Удалить</a>
                         {% endif %}
                     </div>
                 </div>
